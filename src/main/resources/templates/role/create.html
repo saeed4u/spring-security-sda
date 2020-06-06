@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+
+    <title>Registration</title>
+</head>
+<body>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+
+        <h1>Create role</h1>
+        <form th:action="@{/roles/create}" th:object="${role}" method="post">
+
+            <p class="error-message" th:if="${#fields.hasGlobalErrors()}"
+               th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation
+                error</p>
+
+            <div class="form-group col-md-6"
+                 th:classappend="${#fields.hasErrors('roleName')}? 'has-error':''">
+
+                <label for="roleName" class="control-label">Role name</label>
+
+                <input
+                        id="roleName" class="form-control" th:field="*{roleName}"/>
+                <p class="error-message"
+                   th:each="error: ${#fields.errors('roleName')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Create role!</button>
+                <a href="/roles" class="btn btn-danger">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

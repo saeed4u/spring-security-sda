@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+
+    <title>All roles</title>
+</head>
+<body>
+
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <h2>Roles</h2>
+        <div class="">
+            <a href="/roles/create" class="btn btn-info">
+                Create role
+            </a>
+        </div>
+    </div>
+    <table class="table table-hover">
+        <thead class="table-da">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Role name</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="role : ${roles}">
+            <td th:text="${role.getId()}"></td>
+            <td th:text="${role.getName()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript"
+        th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+<script type="text/javascript"
+        th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
+</body>
+</html>
