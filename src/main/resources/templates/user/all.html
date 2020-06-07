@@ -8,8 +8,22 @@
 
     <link rel="stylesheet" type="text/css"
           th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
-
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <title>All users</title>
+    <style>
+        tr {
+            cursor: pointer;
+        }
+
+        .btn-hidden {
+            display: none;
+        }
+
+        tr:hover > td .btn-hidden {
+            display: inline;
+        }
+    </style>
 </head>
 <body>
 
@@ -29,6 +43,7 @@
             <th scope="col">Last name</th>
             <th scope="col">Email</th>
             <th scope="col">Roles</th>
+            <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -41,10 +56,14 @@
                 <span th:each="role : ${user.roles}" th:text="${role.getName()}" class="btn btn-primary">
                 </span>
             </td>
+            <td>
+                <button type="button" class="btn-hidden btn btn-default"><i class="fa fa-edit"></i></button>
+                <a th:href='@{/users/{userId}/delete(userId=${user.id})}' type="button" class="btn-hidden btn btn-danger"><i class="fa fa-trash"></i></a>
+            </td>
         </tr>
         </tbody>
     </table>
-    <p class="my-5" sec:authorize="isAuthenticated()"><a th:href="@{/logout}" class="btn btn-primary">Logout</a></p>
+    <p class="my-5" sec:authorize="!isAuthenticated()"><a th:href="@{/logout}" class="btn btn-primary">Logout</a></p>
 </div>
 
 <script type="text/javascript"

@@ -16,4 +16,6 @@ public interface UserService extends UserDetailsService {
     List<User> getAllUsers();
 
     User createUser(CreateUserDTO createUserDTO) throws Exception;
+
+    boolean deleteUser(Long userId) throws Exception;
 }

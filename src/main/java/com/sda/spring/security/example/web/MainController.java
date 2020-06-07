@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,12 +32,6 @@ public class MainController {
         return new CreateUserDTO();
     }
 
-
-    @GetMapping("/")
-    public String root() {
-        return "index";
-    }
-
     @GetMapping("/login")
     public String login(Model model) {
         return "login";
@@ -47,7 +42,7 @@ public class MainController {
         return "user/index";
     }
 
-    @GetMapping("/users")
+    @GetMapping
     public ModelAndView getAllUsers(){
         List<User> users = userService.getAllUsers();
         ModelAndView modelAndView = new ModelAndView("user/all");
@@ -65,6 +60,12 @@ public class MainController {
     @PostMapping("users/create")
     public String createUser(@ModelAttribute("user")CreateUserDTO createUserDTO) throws Exception {
         userService.createUser(createUserDTO);
-        return "redirect:/users";
+        return "redirect:/";
+    }
+
+    @GetMapping("users/{userId}/delete")
+    public String deleteUser(@PathVariable("userId") Long userId) throws Exception {
+        userService.deleteUser(userId);
+        return "redirect:/";
     }
 }

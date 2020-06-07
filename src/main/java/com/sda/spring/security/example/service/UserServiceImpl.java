@@ -62,8 +62,20 @@ public class UserServiceImpl implements UserService {
         user.setLastName(createUserDTO.getLastName());
         user.setEmail(createUserDTO.getEmail());
         user.setPassword(passwordEncoder.encode("password"));
-        user.setRoles(Collections.singletonList(role.get()));
+         user.setRoles(Collections.singletonList(role.get()));
         return userRepository.save(user);
+    }
+
+    @Override
+    public boolean deleteUser(Long userId) throws Exception {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()){
+            User user = userOptional.get();
+            user.getRoles().clear();
+            userRepository.delete(user);
+            return true;
+        }
+        throw new Exception("User not found!!");
     }
 
     @Override
